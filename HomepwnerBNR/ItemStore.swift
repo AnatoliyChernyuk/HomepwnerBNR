@@ -10,10 +10,17 @@ import UIKit
 
 class ItemStore {
     var allItems = [Item]()
+    var greaterThen50: [Item] {
+        return allItems.filter{$0.valueInDollars > 50}
+    }
+    var lessOrEqualTo50: [Item] {
+        return allItems.filter{$0.valueInDollars <= 50}
+    }
     
     init() {
+        var items = [Item]()
         for _ in 0..<5 {
-            createItem()
+            items.append(createItem())
         }
     }
     
@@ -22,4 +29,17 @@ class ItemStore {
         allItems.append(newItem)
         return newItem
     }
+    
+    //Mine solution to the challenges
+    /*
+    func filterItemsIn(store: [Item], greaterThen50: Bool) -> [Item] {
+        var newStore = [Item]()
+        if greaterThen50 == true {
+            newStore = allItems.filter{$0.valueInDollars>50}
+        } else {
+            newStore = allItems.filter{$0.valueInDollars<=50}
+        }
+        return newStore
+    }
+    */
 }

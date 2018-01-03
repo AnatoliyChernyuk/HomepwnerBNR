@@ -54,9 +54,9 @@ class ItemsViewController: UITableViewController {
         }
         switch section {
         case 0:
-            return filterItemsIn(store: itemStore.allItems, greaterThen50: false).count
+            return itemStore.lessOrEqualTo50.count
         case 1:
-            return filterItemsIn(store: itemStore.allItems, greaterThen50: true).count
+            return itemStore.greaterThen50.count
         case 2:
             return 1
         default:
@@ -79,11 +79,9 @@ class ItemsViewController: UITableViewController {
         let item: Item
         switch indexPath.section {
         case 0:
-            let newStore = filterItemsIn(store: itemStore.allItems, greaterThen50: false)
-            item = newStore[indexPath.row]
+            item = itemStore.lessOrEqualTo50[indexPath.row]
         case 1:
-            let newStore = filterItemsIn(store: itemStore.allItems, greaterThen50: true)
-            item = newStore[indexPath.row]
+            item = itemStore.greaterThen50[indexPath.row]
         default:
             item = Item()
         }
@@ -111,24 +109,6 @@ class ItemsViewController: UITableViewController {
         } else {
             return 60
         }
-    }
-    
-    func filterItemsIn(store: [Item], greaterThen50: Bool) -> [Item] {
-        var newStore = [Item]()
-        if greaterThen50 == true {
-            for item in store {
-                if item.valueInDollars > 50 {
-                    newStore.append(item)
-                }
-            }
-        } else {
-            for item in store {
-                if item.valueInDollars <= 50 {
-                    newStore.append(item)
-                }
-            }
-        }
-        return newStore
     }
 
     /*
