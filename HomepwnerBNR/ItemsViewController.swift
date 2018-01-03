@@ -27,20 +27,108 @@ class ItemsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        if itemStore.allItems.isEmpty {
+            return 1
+        } else {
+            return 3
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if itemStore.allItems.isEmpty {
+            return nil
+        }
+        switch section {
+        case 0:
+            return "Items Worth Less Then $50"
+        case 1:
+            return "Items Worth More Then $50"
+        default:
+            return nil
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemStore.allItems.count
+        if itemStore.allItems.isEmpty {
+            return 1
+        }
+        switch section {
+        case 0:
+            return filterItemsIn(store: itemStore.allItems, greaterThen50: false).count
+        case 1:
+            return filterItemsIn(store: itemStore.allItems, greaterThen50: true).count
+        case 2:
+            return 1
+        default:
+            return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        let item = itemStore.allItems[indexPath.row]
+        
+        let image = UIImage(named: "LandscapeBackground")!
+        cell.backgroundColor = UIColor(patternImage: image)
+        
+        if itemStore.allItems.isEmpty || indexPath.section == 2 {
+            cell.textLabel?.text = "No more items!"
+            cell.textLabel?.textColor = UIColor.white
+            cell.detailTextLabel?.text = nil
+            return cell
+        }
+        let item: Item
+        switch indexPath.section {
+        case 0:
+            let newStore = filterItemsIn(store: itemStore.allItems, greaterThen50: false)
+            item = newStore[indexPath.row]
+        case 1:
+            let newStore = filterItemsIn(store: itemStore.allItems, greaterThen50: true)
+            item = newStore[indexPath.row]
+        default:
+            item = Item()
+        }
+        
         cell.textLabel?.text = item.name
+        cell.textLabel?.textColor = UIColor.white
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
         cell.detailTextLabel?.text = String(item.valueInDollars)
+        cell.detailTextLabel?.textColor = UIColor.white
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 20)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if itemStore.allItems.isEmpty || indexPath.section == 2 {
+            return 44
+        } else {
+            return 60
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if itemStore.allItems.isEmpty || section == 2 {
+            return 0
+        } else {
+            return 60
+        }
+    }
+    
+    func filterItemsIn(store: [Item], greaterThen50: Bool) -> [Item] {
+        var newStore = [Item]()
+        if greaterThen50 == true {
+            for item in store {
+                if item.valueInDollars > 50 {
+                    newStore.append(item)
+                }
+            }
+        } else {
+            for item in store {
+                if item.valueInDollars <= 50 {
+                    newStore.append(item)
+                }
+            }
+        }
+        return newStore
     }
 
     /*
