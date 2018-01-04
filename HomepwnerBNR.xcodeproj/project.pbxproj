@@ -16,6 +16,7 @@
 		6085C4361FFBE9CC006B2913 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6085C4351FFBE9CC006B2913 /* ItemsViewController.swift */; };
 		6085C4381FFBECBA006B2913 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6085C4371FFBECBA006B2913 /* Item.swift */; };
 		6085C43C1FFBF3AC006B2913 /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6085C43B1FFBF3AC006B2913 /* ItemStore.swift */; };
+		6085C43E1FFE827B006B2913 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6085C43D1FFE827B006B2913 /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		6085C4351FFBE9CC006B2913 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		6085C4371FFBECBA006B2913 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		6085C43B1FFBF3AC006B2913 /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
+		6085C43D1FFE827B006B2913 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				6085C4071FFBDDC7006B2913 /* AppDelegate.swift */,
 				6085C4371FFBECBA006B2913 /* Item.swift */,
+				6085C43D1FFE827B006B2913 /* ItemCell.swift */,
 				6085C43B1FFBF3AC006B2913 /* ItemStore.swift */,
 				6085C4351FFBE9CC006B2913 /* ItemsViewController.swift */,
 				6085C40B1FFBDDC7006B2913 /* Main.storyboard */,
@@ -269,6 +272,7 @@
 				6085C4381FFBECBA006B2913 /* Item.swift in Sources */,
 				6085C43C1FFBF3AC006B2913 /* ItemStore.swift in Sources */,
 				6085C4081FFBDDC7006B2913 /* AppDelegate.swift in Sources */,
+				6085C43E1FFE827B006B2913 /* ItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,8 @@ class ItemsViewController: UITableViewController {
         let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 65
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +27,8 @@ class ItemsViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    
+    //The best solution for the Chapter 11 Challenges is to use 2 sections from scratch. If the itemStore.allItems.isEmpty the number of rows in the first scetion is 0 making this section not visible on the screen. This approach removes the overhead of creating and deleting sections. Left it here as an example how to change the number of sections as it's a buggy process.
     override func numberOfSections(in tableView: UITableView) -> Int {
         if itemStore.allItems.isEmpty {
             return 1
@@ -43,15 +46,22 @@ class ItemsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
         if itemStore.allItems.isEmpty || indexPath.section == 1 {
-            cell.textLabel?.text = "No more items!"
-            cell.detailTextLabel?.text = nil
+            cell.nameLabel.text = "No more items!"
+            cell.valueLabel.text = nil
+            cell.serialNumberLabel.text = nil
             return cell
         }
         let item = itemStore.allItems[indexPath.row]
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = String(item.valueInDollars)
+        cell.nameLabel.text = item.name
+        cell.serialNumberLabel.text = item.serialNumber
+        cell.valueLabel.text = "$" + String(item.valueInDollars)
+        if item.valueInDollars < 50 {
+            cell.valueLabel.textColor = UIColor.green
+        } else {
+            cell.valueLabel.textColor = UIColor.red
+        }
         return cell
     }
     
