@@ -27,56 +27,109 @@ class ItemsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        if itemStore.allItems.isEmpty {
+            return 1
+        } else {
+            return 2
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemStore.allItems.count
+        if itemStore.allItems.isEmpty || section == 1 {
+            return 1
+        } else {
+            return itemStore.allItems.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        if itemStore.allItems.isEmpty || indexPath.section == 1 {
+            cell.textLabel?.text = "No more items!"
+            cell.detailTextLabel?.text = nil
+            return cell
+        }
         let item = itemStore.allItems[indexPath.row]
         cell.textLabel?.text = item.name
         cell.detailTextLabel?.text = String(item.valueInDollars)
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @IBAction func addNewItem(_ sender: UIButton) {
+        let newItem = itemStore.createItem()
+        if tableView.numberOfSections == 1 {
+            tableView.insertSections(IndexSet(integer: 0), with: .automatic)
+        } else {
+            if let index = itemStore.allItems.index(of: newItem) {
+                let indexPath = IndexPath(row: index, section: 0)
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
+    
+    @IBAction func toggleEditingMode(_ sender: UIButton) {
+        if isEditing {
+            sender.setTitle("Edit", for: .normal)
+            setEditing(false, animated: true)
+        } else {
+            if itemStore.allItems.isEmpty {
+                return
+            }
+            sender.setTitle("Done", for: .normal)
+            setEditing(true, animated: true)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let item = itemStore.allItems[indexPath.row]
+            let title = "Delete \(item.name)?"
+            let message = "Are you sure you want to delete this item?"
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            ac.addAction(cancelAction)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
+                self.itemStore.removeItem(item)
+                if self.itemStore.allItems.isEmpty {
+                    self.tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
+                } else {
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            })
+            ac.addAction(deleteAction)
+            present(ac, animated: true, completion: nil)
+            
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
+    
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        itemStore.moveItem(from: fromIndexPath.row, to: to.row)
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
+    }
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView.numberOfSections == 1 || indexPath.section == 1 {
+            return false
+        }
         return true
     }
-    */
+
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if tableView.numberOfSections == 1 || indexPath.section == 1 {
+            return false
+        }
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.section == 1 {
+            return sourceIndexPath
+        }
+        return proposedDestinationIndexPath
+    }
 
     /*
     // MARK: - Navigation
