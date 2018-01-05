@@ -46,13 +46,13 @@ class ItemsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
         if itemStore.allItems.isEmpty || indexPath.section == 1 {
-            cell.nameLabel.text = "No more items!"
-            cell.valueLabel.text = nil
-            cell.serialNumberLabel.text = nil
-            return cell
+            let noMoreItemsCell = UITableViewCell(style: .default, reuseIdentifier: "NoMoreItemsCell")
+            noMoreItemsCell.textLabel?.text = "No more items!"
+            noMoreItemsCell.detailTextLabel?.text = nil
+            return noMoreItemsCell
         }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
         let item = itemStore.allItems[indexPath.row]
         cell.nameLabel.text = item.name
         cell.serialNumberLabel.text = item.serialNumber
@@ -141,14 +141,63 @@ class ItemsViewController: UITableViewController {
         return proposedDestinationIndexPath
     }
 
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case "showItem"?:
+            if let row = tableView.indexPathForSelectedRow?.row {
+                let item = itemStore.allItems[row]
+                let detailViewController = segue.destination as! DetailViewController
+                detailViewController.item = item
+            }
+        default:
+            preconditionFailure("Unexpected Segue Identifier.")
+        }
     }
-    */
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
