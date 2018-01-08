@@ -9,6 +9,7 @@
 import UIKit
 
 class ItemsViewController: UITableViewController {
+    var imageStore: ImageStore!
     var itemStore: ItemStore!
 
     override func viewDidLoad() {
@@ -85,6 +86,7 @@ class ItemsViewController: UITableViewController {
             ac.addAction(cancelAction)
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
                 self.itemStore.removeItem(item)
+                self.imageStore.deleteImage(forKey: item.itemKey)
                 if self.itemStore.allItems.isEmpty {
                     self.tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
                 } else {
@@ -126,6 +128,13 @@ class ItemsViewController: UITableViewController {
         return proposedDestinationIndexPath
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if tableView.numberOfSections == 1 || indexPath.section == 1 {
+            return nil
+        }
+        return indexPath
+    }
+    
     //MARK: - IBActions
     
     @IBAction func addNewItem(_ sender: UIBarButtonItem) {
@@ -148,6 +157,7 @@ class ItemsViewController: UITableViewController {
                 let item = itemStore.allItems[row]
                 let detailViewController = segue.destination as! DetailViewController
                 detailViewController.item = item
+                detailViewController.imageStore = imageStore
             }
         default:
             preconditionFailure("Unexpected Segue Identifier.")
