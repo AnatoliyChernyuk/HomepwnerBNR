@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Items View Controller-->
+        <!--Homepwner-->
         <scene sceneID="iII-aF-EbK">
             <objects>
                 <tableViewController id="6Or-PN-1K8" customClass="ItemsViewController" customModule="HomepwnerBNR" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,38 +19,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="Luz-lJ-fUK">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zit-HO-YdK">
-                                    <rect key="frame" x="8" y="15" width="175.5" height="30"/>
-                                    <state key="normal" title="Edit"/>
-                                    <connections>
-                                        <action selector="toggleEditingMode:" destination="6Or-PN-1K8" eventType="touchUpInside" id="AK1-ZL-yaE"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="av3-mp-91i">
-                                    <rect key="frame" x="191.5" y="15" width="175.5" height="30"/>
-                                    <state key="normal" title="Add"/>
-                                    <connections>
-                                        <action selector="addNewItem:" destination="6Or-PN-1K8" eventType="touchUpInside" id="3UC-WU-UTS"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="av3-mp-91i" firstAttribute="centerY" secondItem="Luz-lJ-fUK" secondAttribute="centerY" id="6ly-dl-R5Z"/>
-                                <constraint firstAttribute="trailing" secondItem="av3-mp-91i" secondAttribute="trailing" constant="8" id="7hF-L8-zud"/>
-                                <constraint firstItem="av3-mp-91i" firstAttribute="leading" secondItem="Zit-HO-YdK" secondAttribute="trailing" constant="8" id="Hce-j0-zo1"/>
-                                <constraint firstItem="av3-mp-91i" firstAttribute="width" secondItem="Zit-HO-YdK" secondAttribute="width" id="IqN-Ll-bRE"/>
-                                <constraint firstItem="Zit-HO-YdK" firstAttribute="leading" secondItem="Luz-lJ-fUK" secondAttribute="leading" constant="8" id="KCU-Xl-FTc"/>
-                                <constraint firstItem="Zit-HO-YdK" firstAttribute="centerY" secondItem="Luz-lJ-fUK" secondAttribute="centerY" id="Yig-in-JC0"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="65" id="hKF-QR-0Ft" customClass="ItemCell" customModule="HomepwnerBNR" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hKF-QR-0Ft" id="OJq-bq-v25">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
@@ -98,7 +69,13 @@
                             <outlet property="delegate" destination="6Or-PN-1K8" id="BY1-JL-J47"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="SP8-vS-Q3V"/>
+                    <navigationItem key="navigationItem" title="Homepwner" id="SP8-vS-Q3V">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="4s7-FA-q32">
+                            <connections>
+                                <action selector="addNewItem:" destination="6Or-PN-1K8" id="zKP-o8-e2E"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hWT-Yi-vtM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -124,11 +101,14 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5N-WR-bb9">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5N-WR-bb9" customClass="StylishTextField" customModule="HomepwnerBNR" customModuleProvider="target">
                                                 <rect key="frame" x="53" y="0.0" width="306" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="07h-WN-CPW" id="bIV-Wk-nfC"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -141,11 +121,14 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P0w-1b-Oh5">
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P0w-1b-Oh5" customClass="StylishTextField" customModule="HomepwnerBNR" customModuleProvider="target">
                                                 <rect key="frame" x="53" y="0.0" width="306" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="07h-WN-CPW" id="jgt-Uo-G7a"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -158,20 +141,35 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Es-pL-pba">
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Es-pL-pba" customClass="StylishTextField" customModule="HomepwnerBNR" customModuleProvider="target">
                                                 <rect key="frame" x="53" y="0.0" width="306" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="07h-WN-CPW" id="pHj-nr-vrH"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Date Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-0L-lH9">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="UWS-90-7YO">
                                         <rect key="frame" x="0.0" y="114" width="359" height="473"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="800" text="Date Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-0L-lH9">
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="192"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbv-ko-eZP">
+                                                <rect key="frame" x="0.0" y="192" width="359" height="281"/>
+                                                <state key="normal" title="Change Date"/>
+                                                <connections>
+                                                    <segue destination="ddi-ZZ-HeH" kind="show" identifier="ChangeDate" id="AfT-Sp-z3s"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="k5N-WR-bb9" firstAttribute="leading" secondItem="P0w-1b-Oh5" secondAttribute="leading" id="3dw-92-C0d"/>
@@ -180,13 +178,17 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="TUJ-XH-qaK" firstAttribute="top" secondItem="Kek-ZE-N4z" secondAttribute="top" constant="8" id="OeD-rh-36r"/>
                             <constraint firstItem="TUJ-XH-qaK" firstAttribute="trailing" secondItem="Kek-ZE-N4z" secondAttribute="trailing" constant="-8" id="dfi-zw-Vdb"/>
                             <constraint firstItem="TUJ-XH-qaK" firstAttribute="bottom" secondItem="Kek-ZE-N4z" secondAttribute="bottom" constant="-8" id="jZd-MR-miN"/>
                             <constraint firstItem="TUJ-XH-qaK" firstAttribute="leading" secondItem="Kek-ZE-N4z" secondAttribute="leading" constant="8" id="pzl-gx-d1P"/>
-                            <constraint firstItem="TUJ-XH-qaK" firstAttribute="top" secondItem="74L-ea-N1n" secondAttribute="topMargin" constant="8" id="tCP-QR-Irb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kek-ZE-N4z"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ilM-NN-x2w" appends="YES" id="5E6-yq-OQI"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="dateLabel" destination="w8s-0L-lH9" id="Q7r-KZ-WmM"/>
@@ -196,8 +198,46 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4LX-Df-efN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ilM-NN-x2w">
+                    <connections>
+                        <action selector="backgroundTapped:" destination="07h-WN-CPW" id="JSG-S4-Xl3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1263.2" y="59.820089955022496"/>
+            <point key="canvasLocation" x="594" y="330"/>
+        </scene>
+        <!--Date Change-->
+        <scene sceneID="hos-GK-KCC">
+            <objects>
+                <viewController title="Date Change" id="ddi-ZZ-HeH" customClass="DatePickerController" customModule="HomepwnerBNR" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yVR-wT-l4z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="u3H-4c-RBn">
+                                <rect key="frame" x="28" y="225" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="537067881.49662995">
+                                    <!--2018-01-08 01:31:21 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateChanged:" destination="ddi-ZZ-HeH" eventType="valueChanged" id="syk-WF-Ryc"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="u3H-4c-RBn" firstAttribute="centerX" secondItem="yVR-wT-l4z" secondAttribute="centerX" id="AiI-LB-QFI"/>
+                            <constraint firstItem="u3H-4c-RBn" firstAttribute="centerY" secondItem="yVR-wT-l4z" secondAttribute="centerY" id="Pxa-8F-dDu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jaw-zI-ayt"/>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="u3H-4c-RBn" id="ErY-QM-LA9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lqy-Bf-ESW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1303" y="34"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="feC-an-jy8">
@@ -215,7 +255,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nvS-gW-Yws" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-138" y="18"/>
+            <point key="canvasLocation" x="-137" y="34"/>
         </scene>
     </scenes>
 </document>

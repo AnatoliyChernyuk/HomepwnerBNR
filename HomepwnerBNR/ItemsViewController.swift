@@ -13,17 +13,27 @@ class ItemsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //As the UINavigationBar by default handles insets not to overlap with the status bar this commented out code can be deleted. Left as example for the future.
+        /*
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
+        */
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 65
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 
     // MARK: - Table view data source
@@ -63,31 +73,6 @@ class ItemsViewController: UITableViewController {
             cell.valueLabel.textColor = UIColor.red
         }
         return cell
-    }
-    
-    @IBAction func addNewItem(_ sender: UIButton) {
-        let newItem = itemStore.createItem()
-        if tableView.numberOfSections == 1 {
-            tableView.insertSections(IndexSet(integer: 0), with: .automatic)
-        } else {
-            if let index = itemStore.allItems.index(of: newItem) {
-                let indexPath = IndexPath(row: index, section: 0)
-                tableView.insertRows(at: [indexPath], with: .automatic)
-            }
-        }
-    }
-    
-    @IBAction func toggleEditingMode(_ sender: UIButton) {
-        if isEditing {
-            sender.setTitle("Edit", for: .normal)
-            setEditing(false, animated: true)
-        } else {
-            if itemStore.allItems.isEmpty {
-                return
-            }
-            sender.setTitle("Done", for: .normal)
-            setEditing(true, animated: true)
-        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -140,6 +125,20 @@ class ItemsViewController: UITableViewController {
         }
         return proposedDestinationIndexPath
     }
+    
+    //MARK: - IBActions
+    
+    @IBAction func addNewItem(_ sender: UIBarButtonItem) {
+        let newItem = itemStore.createItem()
+        if tableView.numberOfSections == 1 {
+            tableView.insertSections(IndexSet(integer: 0), with: .automatic)
+        } else {
+            if let index = itemStore.allItems.index(of: newItem) {
+                let indexPath = IndexPath(row: index, section: 0)
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -154,6 +153,7 @@ class ItemsViewController: UITableViewController {
             preconditionFailure("Unexpected Segue Identifier.")
         }
     }
+    
 }
 
 
