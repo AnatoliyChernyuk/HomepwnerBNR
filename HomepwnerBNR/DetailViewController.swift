@@ -88,7 +88,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        let image: UIImage
+        if info[UIImagePickerControllerEditedImage] == nil {
+            image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        } else {
+            image = info[UIImagePickerControllerEditedImage] as! UIImage
+        }
         imageStore.setImage(image, forKey: item.itemKey)
         imageView.image = image
         dismiss(animated: true, completion: nil)
@@ -103,18 +108,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         let imagePickerController = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePickerController.sourceType = .camera
+            imagePickerController.allowsEditing = true
+            //Solution to the Golden Challenge of the Chaper 15
+            let image = UIImage(named: "crosshair")
+            let iView = UIImageView(frame: CGRect(x: imagePickerController.cameraOverlayView!.bounds.midX - 40, y: imagePickerController.cameraOverlayView!.bounds.midY - 70, width: 80, height: 80))
+            iView.image = image
+            imagePickerController.cameraOverlayView = iView
         } else {
             imagePickerController.sourceType = .photoLibrary
         }
         imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        
-        //Solution to the Golden Challenge of the Chaper 15
-        let image = UIImage(named: "crosshair")
-        let iView = UIImageView(frame: CGRect(x: imagePickerController.cameraOverlayView!.bounds.midX - 40, y: imagePickerController.cameraOverlayView!.bounds.midY - 70, width: 80, height: 80))
-        iView.image = image
-        imagePickerController.cameraOverlayView = iView
-        
         present(imagePickerController, animated: true, completion: nil)
     }
     
